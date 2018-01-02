@@ -1,11 +1,11 @@
 <h2><%= @stores_presenter.count %> Total Stores</h2>
 
-<% @stores_presenter.batch.each do |store| %>
+<% @stores_presenter.stores.each do |store| %>
 <ul class="store">
   <li class="name"><%= store.name %></li>
   <li class="distance"><%= store.distance %></li>
   <li class="phone_number"><%= store.phone_number %></li>
-  <li><%= store.type %></li>
+  <li class="type"><%= store.type %></li>
 </ul>
 <% end %>
 

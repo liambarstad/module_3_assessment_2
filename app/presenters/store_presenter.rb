@@ -1,11 +1,13 @@
 class StorePresenter
+  attr_reader :stores
 
   def initialize(stores)
     @stores = stores
   end
 
-  private
-    attr_reader :search
+  def count
+    stores[0].total
+  end
 
 end
 

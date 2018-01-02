@@ -2,26 +2,32 @@ class BestBuyService
 
   def initialize(args)
     @search = args[:search]
-    @batch = args[:batch]
+    @batch = args[:batch] || 1
     @api_key = ENV["best_buy_key"]
     @distance = args[:distance] || 25
+    @page_size = args[:page_size] || 10
   end
 
   def get_stores
     conn = create_request
-    StoreFactory.initialize_from_json(conn.get)
+    json = JSON.parse(conn.get.body)
+    StoreFactory.initialize_from_json(json)
   end
 
   private
     attr_reader :search,
                 :batch,
                 :api_key,
-                :distance
+                :distance,
+                :page_size
 
     def create_request
-      Faraday.new("https://api.bestbuy.com/v1/stores" + "(area(#{search},#{distance}))") do
-        params["format"] = "json"
-        params["api_key"] = api_key
+      Faraday.new("https://api.bestbuy.com/v1/stores" + "(area(#{search},#{distance}))") do |f|
+        f.params["format"] = "json"
+        f.params["apiKey"] = api_key
+        f.params["page"] = batch
+        f.params["pageSize"] = page_size
+        f.adapter Faraday.default_adapter
       end
     end
 
