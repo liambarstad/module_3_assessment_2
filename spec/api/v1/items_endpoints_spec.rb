@@ -20,7 +20,21 @@ RSpec.describe "API can access items" do
   end
 
   it "for one item" do
+    #When I send a GET request to `/api/v1/items/1`
+    #I receive a 200 JSON response containing the id, name, description, and image_url but not the created_at or updated_at
 
+    item1 = create(:item)
+
+    get '/api/v1/items/1'
+    result = JSON.parse(response.body)
+
+    expect(response.status).to eq(200)
+    expect(result["id"]).to eq(item1.id)
+    expect(result["name"]).to eq(item1.name)
+    expect(result["description"]).to eq(item1.description)
+    expect(result["image_url"]).to eq(item1.image_url)
+    expect(result["created_at"]).to eq(nil)
+    expect(result["updated_at"]).to eq(nil)
   end
 
   it "to delete one item" do
