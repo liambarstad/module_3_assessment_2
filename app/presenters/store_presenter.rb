@@ -1,10 +1,12 @@
 class StorePresenter
   attr_reader :stores,
-              :page
+              :page,
+              :search
 
   def initialize(stores, args)
     @stores = stores
     @page = args[:page]
+    @search = args[:search]
   end
 
   def count
