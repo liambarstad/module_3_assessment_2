@@ -47,6 +47,14 @@ RSpec.describe "API can access items" do
   end
 
   it "to create an item" do
+    
+    post '/api/v1/items', params: { name: "newthing", description: "this new thang", image_url: "image" }
+    result = JSON.parse(response.body)
 
+    expect(response.status).to eq(201)
+    expect(result["id"]).to eq(1)
+    expect(result["name"]).to eq("newthing")
+    expect(result["description"]).to eq("this new thang")
+    expect(result["image_url"]).to eq("image")
   end
 end
