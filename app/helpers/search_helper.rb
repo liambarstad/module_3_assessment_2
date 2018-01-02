@@ -1,16 +1,11 @@
 module SearchHelper
 
-   def pagination_tag(presenter)
+   def pagination_tag(presenter, options={})
      capture do
       presenter.total_pages.times do |i|
         page = i + 1
-        if page != presenter.page
-          concat(link_to page, search_index_path(page: page, search: presenter.search))
-          concat(" ")
-        else
-          concat("<a>#{i}</a>")
-          concat(" ")
-        end
+        concat link_to_if(page != presenter.page, page, search_index_path(page: page, search: presenter.search), options)
+        concat(" ")
       end
     end
    end
