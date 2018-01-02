@@ -8,4 +8,11 @@ class Api::V1::ItemsController < ApplicationController
     render json: Item.find(params[:id])
   end
 
+  def destroy
+    item = Item.find(params[:id])
+    if item.destroy
+      render json: { message: 'item successfully deleted' }, status: 204
+    end
+  end
+
 end
