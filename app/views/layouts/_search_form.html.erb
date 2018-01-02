@@ -1,0 +1,5 @@
+<%= form_tag('/search', method: :get) do %>
+  <%= label_tag 'Search Best Buy Stores By Location:' %>
+  <%= text_field_tag :search, value: 'Zip Code' %>
+  <%= submit_tag 'Search' %>
+<% end %>
