@@ -15,4 +15,13 @@ class Api::V1::ItemsController < ApplicationController
     end
   end
 
+  def create
+    item = Item.new(name: params[:name],
+                    description: params[:description],
+                    image_url: params[:image_url])
+    if item.save
+      render json: item, status: 201
+    end
+  end
+
 end
